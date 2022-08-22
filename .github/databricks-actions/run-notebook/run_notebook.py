@@ -8,7 +8,7 @@ from databricks_cli.runs.api import RunsApi
 @click.command()
 @click.option('--notebook-path', required=True)
 @click.option('--runtime-version', default="10.3.x-cpu-ml-scala2.12")
-@click.option('--node-type', default="Standard_L4s")
+@click.option('--node-type', default="n1-standard-4")
 @click.option('--num-workers', default="3")
 @click.option('--host', required=True)
 @click.option('--token', required=True)
