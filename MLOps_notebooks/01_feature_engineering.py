@@ -28,21 +28,16 @@ database_name
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC Using `koalas` to scale my teammates' `pandas` code.
-
-# COMMAND ----------
-
 from databricks.feature_store import feature_table
-import databricks.koalas as ks
+import pyspark.pandas as ps
 
 def compute_churn_features(data):
   
   # Convert to koalas
-  data = data.to_koalas()
+  data = data.pandas_api()
   
   # OHE
-  data = ks.get_dummies(data, 
+  data = ps.get_dummies(data, 
                         columns=['gender', 'partner', 'dependents',
                                  'phoneService', 'multipleLines', 'internetService',
                                  'onlineSecurity', 'onlineBackup', 'deviceProtection',
