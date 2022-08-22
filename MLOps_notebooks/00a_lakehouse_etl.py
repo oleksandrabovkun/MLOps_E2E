@@ -11,7 +11,7 @@
 # COMMAND ----------
 
 # MAGIC %sh
-# MAGIC wget https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv
+# MAGIC wget https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv -P /tmp/oleksandra_bovkun/ibm-telco-churn/
 
 # COMMAND ----------
 
@@ -36,7 +36,7 @@ from pyspark.sql.types import StructType,StructField,DoubleType, StringType, Int
 
 # Move file from driver to DBFS
 driver_to_dbfs_path = f'dbfs:{get_default_path()}/Telco-Customer-Churn.csv'
-dbutils.fs.cp('file:/databricks/driver/Telco-Customer-Churn.csv', driver_to_dbfs_path)
+dbutils.fs.cp('file:///tmp/oleksandra_bovkun/ibm-telco-churn/Telco-Customer-Churn.csv', driver_to_dbfs_path)
 
 # COMMAND ----------
 
