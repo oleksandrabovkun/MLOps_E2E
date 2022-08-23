@@ -20,6 +20,9 @@ inputs:
   num-workers:
     description: number of workers
     required: true
+  base_params:
+    description: base parameters for the job 
+    required: false
 
 runs:
   using: composite
@@ -38,4 +41,5 @@ runs:
           --notebook-path ${{ inputs.notebook-path }} \
           --runtime-version ${{ inputs.runtime-version }} \
           --node-type ${{ inputs.node-type }} --num-workers ${{ inputs.num-workers }}
+          --base-params ${{ inputs.base_params }}
       shell: bash
