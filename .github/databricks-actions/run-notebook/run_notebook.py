@@ -25,7 +25,7 @@ def run_notebook(notebook_path, runtime_version, node_type, num_workers, host, t
         #     "max_workers": 6
         # }
     }
-    if base_parameters:
+    if base_params:
         run_conf = {
             'new_cluster': cluster_conf,
             'notebook_task': {
