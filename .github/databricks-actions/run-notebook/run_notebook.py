@@ -12,7 +12,7 @@ from databricks_cli.runs.api import RunsApi
 @click.option('--num-workers', default="3")
 @click.option('--host', required=True)
 @click.option('--token', required=True)
-@click.option('--base-parameters', default="{}")
+@click.option('--base-parameters')
 def run_notebook(notebook_path, runtime_version, node_type, num_workers, host, token, base_parameters):
     api_client = ApiClient(host=host, token=token)
     runs_api = RunsApi(api_client)
@@ -25,13 +25,23 @@ def run_notebook(notebook_path, runtime_version, node_type, num_workers, host, t
         #     "max_workers": 6
         # }
     }
-    run_conf = {
-        'new_cluster': cluster_conf,
-        'notebook_task': {
-            'notebook_path': notebook_path,
-            'base_parameters': base_parameters,
-        },
-    }
+    if base_parameters:
+        run_conf = {
+            'new_cluster': cluster_conf,
+            'notebook_task': {
+                'notebook_path': notebook_path,
+                'base_parameters': base_parameters,
+            },
+        }
+    else:
+        run_conf = {
+            'new_cluster': cluster_conf,
+            'notebook_task': {
+                'notebook_path': notebook_path,
+            },
+        }
+
+    
     run_id = runs_api.submit_run(json=run_conf)['run_id']
     logging.info(f'Submitted run with ID {run_id}.')
 
