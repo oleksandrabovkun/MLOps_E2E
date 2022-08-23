@@ -1,4 +1,8 @@
 # Databricks notebook source
+dbutils.widgets.text("model_name", "", "")
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## Model Tests
 # MAGIC 
@@ -7,12 +11,6 @@
 # COMMAND ----------
 
 # MAGIC %run ./Shared_Include
-
-# COMMAND ----------
-
-dbutils.widgets.text("model_name", "", "")
-dbutils.widgets.text("version", "", "")
-dbutils.widgets.text("event", "", "")
 
 # COMMAND ----------
 
@@ -34,11 +32,8 @@ try:
   # model_name = registry_event['model_name']
   # version = registry_event['version']
   model_name = dbutils.widgets.get('model_name')
-  version = dbutils.widgets.get('version')
-  event = dbutils.widgets.get('event')
-  
-  if event != "" and event != 'Staging':
-    dbutils.notebook.exit()
+  version = client.get_latest_versions(model_name, ["Staging"])[0].version
+
 except Exception:
   model_name = churn_model_name
   version = "1"
@@ -48,6 +43,12 @@ print(model_name, version)
 # Use webhook payload to load model details and run info
 model_details = client.get_model_version(model_name, version)
 run_info = client.get_run(run_id=model_details.run_id)
+
+# COMMAND ----------
+
+
+print(model_name)
+print(version)
 
 # COMMAND ----------
 
