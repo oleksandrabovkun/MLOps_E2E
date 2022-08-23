@@ -25,7 +25,8 @@ def run_notebook(notebook_path, runtime_version, node_type, num_workers, host, t
         #     "max_workers": 6
         # }
     }
-    if model_name:
+    logging.info(f'Model name {model_name}.')
+    if model_name != '' and model_name:
         run_conf = {
             'new_cluster': cluster_conf,
             'notebook_task': {
