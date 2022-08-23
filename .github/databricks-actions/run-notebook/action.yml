@@ -41,5 +41,5 @@ runs:
           --notebook-path ${{ inputs.notebook-path }} \
           --runtime-version ${{ inputs.runtime-version }} \
           --node-type ${{ inputs.node-type }} --num-workers ${{ inputs.num-workers }}
-          --base-params ${{ inputs.base-params }}
+          --model-name ${{ inputs.model-name }}
       shell: bash
