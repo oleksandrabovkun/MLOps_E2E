@@ -5,7 +5,14 @@ import time
 from databricks_cli.sdk import ApiClient
 from databricks_cli.runs.api import RunsApi
 
-
+@click.command()
+@click.option('--notebook-path', required=True)
+@click.option('--runtime-version', default="10.3.x-cpu-ml-scala2.12")
+@click.option('--node-type', default="n1-standard-4")
+@click.option('--num-workers', default="3")
+@click.option('--host', required=True)
+@click.option('--token', required=True)
+@click.option('--model-name')
 def run_notebook(notebook_path, runtime_version, node_type, num_workers, host, token, model_name):
     api_client = ApiClient(host=host, token=token)
     runs_api = RunsApi(api_client)
@@ -35,7 +42,7 @@ def run_notebook(notebook_path, runtime_version, node_type, num_workers, host, t
             },
         }
 
-    
+    logging.info(f'Run Config {run_conf}.')
     run_id = runs_api.submit_run(json=run_conf)['run_id']
     logging.info(f'Submitted run with ID {run_id}.')
 
@@ -57,14 +64,7 @@ def run_notebook(notebook_path, runtime_version, node_type, num_workers, host, t
         state_message = run_info['state']['state_message']
         raise RuntimeError(f'Run failed: {state_message}. Visit {run_url} to see detailed logs.')
 
-@click.command()
-@click.option('--notebook-path', required=True)
-@click.option('--runtime-version', default="10.3.x-cpu-ml-scala2.12")
-@click.option('--node-type', default="n1-standard-4")
-@click.option('--num-workers', default="3")
-@click.option('--host', required=True)
-@click.option('--token', required=True)
-@click.option('--model-name')
+
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(asctime)s: %(message)s')
-    run_notebook(notebook_path, runtime_version, node_type, num_workers, host, token, model_name)
+    run_notebook()
