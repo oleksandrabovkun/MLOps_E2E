@@ -12,7 +12,7 @@ from databricks_cli.runs.api import RunsApi
 @click.option('--num-workers', default="3")
 @click.option('--host', required=True)
 @click.option('--token', required=True)
-@click.option('--model-name')
+@click.option('--model-name', required=True) 
 def run_notebook(notebook_path, runtime_version, node_type, num_workers, host, token, model_name):
     api_client = ApiClient(host=host, token=token)
     runs_api = RunsApi(api_client)
