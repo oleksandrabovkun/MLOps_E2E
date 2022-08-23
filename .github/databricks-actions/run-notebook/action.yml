@@ -37,9 +37,11 @@ runs:
       shell: bash
     - run: |
         python "${GITHUB_ACTION_PATH}/run_notebook.py" \
-          --host ${{ inputs.host }} --token ${{ inputs.token }} \
+          --host ${{ inputs.host }} \
+          --token ${{ inputs.token }} \
           --notebook-path ${{ inputs.notebook-path }} \
           --runtime-version ${{ inputs.runtime-version }} \
-          --node-type ${{ inputs.node-type }} --num-workers ${{ inputs.num-workers }}
+          --node-type ${{ inputs.node-type }} \
+          --num-workers ${{ inputs.num-workers }} \
           --model-name ${{ inputs.model-name }}
       shell: bash
