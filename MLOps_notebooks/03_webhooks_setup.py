@@ -127,20 +127,14 @@ job_id
 
 # COMMAND ----------
 
-slack_webhook = dbutils.secrets.get("rk_webhooks", "slack")
-slack_webhook
+#slack_webhook = dbutils.secrets.get("rk_webhooks", "slack")
+slack_webhook = "https://hooks.slack.com/services/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"
 
 # COMMAND ----------
 
 import urllib 
 import json 
-
-try:
-  # TODO, set up a slack webhook
-  slack_webhook = dbutils.secrets.get("rk_webhooks", "slack") # You have to set up your own webhook!
-except:
-  slack_webhook = None
-  
+ 
 #     "events": ["TRANSITION_REQUEST_CREATED"],  
 
 if slack_webhook:
