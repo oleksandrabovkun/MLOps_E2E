@@ -20,8 +20,8 @@ inputs:
   num-workers:
     description: number of workers
     required: true
-  base-params:
-    description: base parameters for the job 
+  model-name:
+    description: model to deploy
     required: false
 
 runs:
