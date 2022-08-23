@@ -67,4 +67,4 @@ def run_notebook(notebook_path, runtime_version, node_type, num_workers, host, t
 @click.option('--model-name')
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(asctime)s: %(message)s')
-    run_notebook()
+    run_notebook(notebook_path, runtime_version, node_type, num_workers, host, token, model_name)
