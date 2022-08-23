@@ -10,6 +10,12 @@
 
 # COMMAND ----------
 
+dbutils.widgets.text("model_name", "", "")
+dbutils.widgets.text("version", "", "")
+dbutils.widgets.text("event", "", "")
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC ### Fetch Model in Transition
 
@@ -24,16 +30,21 @@ fs = FeatureStoreClient()
 
 # After receiving payload from webhooks, use MLflow client to retrieve model details and lineage
 try:
-  registry_event = json.loads(dbutils.widgets.get('event_message'))
-  model_name = registry_event['model_name']
-  version = registry_event['version']
-  if 'to_stage' in registry_event and registry_event['to_stage'] != 'Staging':
+  # registry_event = json.loads(dbutils.widgets.get('event_message'))
+  # model_name = registry_event['model_name']
+  # version = registry_event['version']
+  model_name = dbutils.widgets.get('model_name')
+  version = dbutils.widgets.get('version')
+  event = dbutils.widgets.get('event')
+  
+  if event != "" and event != 'Staging':
     dbutils.notebook.exit()
 except Exception:
   model_name = churn_model_name
   version = "1"
-print(model_name, version)
 
+print(model_name, version)
+  
 # Use webhook payload to load model details and run info
 model_details = client.get_model_version(model_name, version)
 run_info = client.get_run(run_id=model_details.run_id)
